@@ -16,26 +16,22 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-If you have multiple Python versions, prefer calling pip via the interpreter:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
 ## Quick start
 
-Train for a small number of steps (with windowed render):
+Train for a small number of steps to see if the installation worked (with windowed render):
 
 ```bash
 python train.py --steps 2000 --render
 ```
 
+(Render will show the cheetah training.)
+
 Results:
 
-- A learning curve is saved to `training_curve.png` after training.
-- Returns should trend up with larger `--steps` (e.g., 200k–1M).
+- A learning curve `training_curve.png` is saved under `runs/{timestamp}/`.
+- Returns should trend upward with larger `--steps` (e.g., 200k–1M).
 
-Longer training with persistent logs/artifacts:
+For longer training, do not use `--render`, as it will take longer to finish:
 
 ```bash
 python train.py --steps 200000
@@ -44,7 +40,7 @@ python train.py --steps 200000
 
 Each run directory contains:
 
-- `config.json` — run config
+- `config.json` — run configuration
 - `returns.csv` — per-episode returns (streamed during training)
 - `training_curve.png` and `summary.json`
 - `actor.pt`, `critic.pt` — saved model weights (if available)
@@ -58,6 +54,10 @@ python eval.py --run-dir runs/<timestamp> --episodes 5
 python eval.py --run-dir runs/<timestamp> --episodes 10 --seed 42 --render
 ```
 
+The episodes parameter specifies how many times you will see the trained cheetah run.
+
+- To see the logs and statistics of the training, look under `runs/{timestamp}/`
+
 The evaluation plot is saved to `runs/<timestamp>/eval_returns.png`.
 
 ## Project structure
@@ -69,8 +69,3 @@ The evaluation plot is saved to `runs/<timestamp>/eval_returns.png`.
 - `env_wrappers/` — environment wrappers. The starter training currently uses a clean env (no noise).
 - `attacks/` — attack scaffolding (FGSM/STAR stubs to be implemented later).
 - `detectors/` — simple statistical detector example.
-
-## Rendering notes
-
-- Use `--render` to open the MuJoCo viewer.
-- HalfCheetah uses frame skipping; the viewer may show 5000 physics steps per episode (1000 agent steps × skip 5).
