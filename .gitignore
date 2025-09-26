@@ -8,3 +8,4 @@ runs/
 #Starter trainings
 !/runs/1m_steps
 !/runs/200k_steps
+!/runs/1m_steps_improved
