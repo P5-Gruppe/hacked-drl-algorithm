@@ -1,7 +1,10 @@
+#Ignored Files 
 .venv/
 __pycache__/
 *.pyc
 .DS_Store
 runs/
-training_curve.png
-eval_returns.png
+
+#Starter trainings
+!/runs/1m_steps
+!/runs/200k_steps
